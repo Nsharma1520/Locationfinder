@@ -1,1 +1,0 @@
-number = input("Enter your mobile number : ")
