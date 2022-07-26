@@ -1,36 +1,35 @@
 import phonenumbers
-from test import number
+# from test import number
 from phonenumbers import geocoder
 from phonenumbers import carrier
-from phonenumbers import timezone
+# from phonenumbers import timezone
 from opencage.geocoder import OpenCageGeocode 
 key = "7a25ae25b2d2438b846772213c2a7c74"
 
+'''Input number from user'''
+number = input("Enter your mobile number : ")
 ch_nmber = phonenumbers.parse(number, "CH")
+print("Your Mobile number is : ", number)
+
+'''To find country '''
 yourLocation = geocoder.description_for_number(ch_nmber, "en")
-print(number)
-print(yourLocation)
+print("Country : ", yourLocation)
 
+'''To find carrier service company name'''
 service_number = phonenumbers.parse(number, "RO")
-print(carrier.name_for_number(service_number,"en"))
+print("Carrier : ", carrier.name_for_number(service_number,"en"))
 
+'''To find latitude and Longitude of given number'''
 geocoder = OpenCageGeocode(key)
 query = str(yourLocation)
 result = geocoder.geocode(query)
 # print(result)
 
 lat = result[0]['geometry']['lat']
-
 lng = result[0]['geometry']['lng']
 
-print(lat, lng)
+print("Latitude : ", lat, "Longitude : ", lng)
 
-# locat = str(lat,lng)
-# print(locat)
-
-
-
-'''<<<<<<<<<<<<<----------------------------------------------------------------------------->>>>>>>>'''
 
 # importing modules
 from geopy.geocoders import Nominatim
@@ -42,21 +41,4 @@ geoLoc = Nominatim(user_agent="GetLoc")
 locname = geoLoc.reverse(f'{lat},{lng}')
 
 # printing the address/location name
-print(locname.address)
-
-
-# ********************************************************************************************
-
-'''import folium
-
-
-m = folium.Map(location=[lat, lng], tiles="Stamen Toner", zoom_start=13)
-
-folium.Circle(
-    radius=100,
-    location=[lat, lng],
-    popup="The Waterfront",
-    color="crimson",
-    fill=False,
-).add_to(m)
-m.save('index1.html')'''
+print("Address : ", locname.address)
